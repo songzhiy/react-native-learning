@@ -4,12 +4,13 @@
 
 import React, {Component} from 'react';
 import {
-    View, Text, StyleSheet, ScrollView,AppRegistry,
+    View, Text, StyleSheet, ScrollView,AppRegistry,Share,
 } from 'react-native';
 import AsyncStorageUtils from "./utils/AsyncStorageUtils";
 import DimensionsUtils from "./utils/DimensionsUtils";
 import PixelratioUtils from "./utils/PixelratioUtils";
 import VibrateUtils from "./utils/VibrateUtils";
+import * as Linking from "react-native/Libraries/Linking/Linking";
 
 export default class APITest extends Component {
 
@@ -64,8 +65,37 @@ export default class APITest extends Component {
     }
 
     _getRegistryOptions() {
+        AppRegistry.registerRunnable('runnableA',()=>console.log('I am runnableA'));
         let appkeys = AppRegistry.getAppKeys();
         console.log('appkeys -- ' + appkeys);
+        AppRegistry.getRunnable('runnableA').run();
+    }
+
+    async _doLinking() {
+        let url = 'http://www.baidu.com';
+        // var support = await Linking.canOpenURL(url);
+        // if (!support) {
+        //     console.log('not support!');
+        // } else {
+        //     Linking.openURL(url).catch((error) => console.log(error.message)).done();
+        // }
+        Linking.canOpenURL(url).then((support) => {
+            if (support) {
+                Linking.openURL(url).catch((error) => console.log(error.message));
+            } else {
+                console.log('不支持，呵呵哒');
+            }
+        }).catch((error) => console.log(error.message)).done();
+    }
+
+    _share() {
+        Share.share({message:'我是message',title:'我是title'},{dialogTitle:'分享'}).then((value) => {
+            console.log(value);
+            if (value !== null && value.action === 'sharedAction') {
+                console.log('分享啦');
+            }
+        })
+            .catch((error) => console.log(error.message)).done();
     }
 
     render() {
@@ -82,6 +112,15 @@ export default class APITest extends Component {
                     <Text style={styles.textStyle} onPress={() => this._dp2px()}>dp2px</Text>
                     <Text style={styles.textStyle} onPress={() => this._vibrate()}>vibrate</Text>
                     <Text style={styles.textStyle} onPress={() => this._getRegistryOptions()}>appregistry</Text>
+                    <Text style={styles.textStyle} onPress={() => this._doLinking()}>linking</Text>
+                    <Text style={styles.textStyle} onPress={() => this._share()}>share</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
+                    <Text style={styles.textStyle} >我是填充数据</Text>
                 </View>
             </ScrollView>
         );

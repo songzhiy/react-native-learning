@@ -27,12 +27,16 @@ import StatusBarPage from "./StatusBarPage";
 import TimePickerPage from "./TimePickerPage";
 import ModalPage from "./ModalPage";
 import APITest from "./APITest";
+import LayoutAnimationPage from "./LayoutAnimationPage";
+import ComplexLayoutAnimation from "./ComplexLayoutAnimation";
+import AnimatedPage from "./AnimatedPage";
 
 export default class Choose extends Component {
     render() {
         return (
             <ScrollView>
                 <View>
+                    <Text>请选择你需要的项目</Text>
                     <Text
                         style={styles.button}
                         onPress={() => this._navigator(TextPage, '文字', 'Bottom')}>Text & AppState & NetInfo</Text>
@@ -57,6 +61,9 @@ export default class Choose extends Component {
                     <Text style={styles.button} onPress={() => this._navigator(TimePickerPage, 'TimePickerPage测试')}>TimePicker</Text>
                     <Text style={styles.button} onPress={() => this._navigator(ModalPage, 'ModalPage测试')}>Modal & Alert</Text>
                     <Text style={styles.button} onPress={() => this._navigator(APITest, 'APITest')}>APITest</Text>
+                    <Text style={styles.button} onPress={() => this._navigator(LayoutAnimationPage, 'LayoutAnimationPage')}>LayoutAnimation</Text>
+                    <Text style={styles.button} onPress={() => this._navigator(ComplexLayoutAnimation, 'ComplexLayoutAnimation')}>ComplexLayoutAnimation</Text>
+                    <Text style={styles.button} onPress={() => this._navigator(AnimatedPage, 'AnimatedPage')}>AnimatedPage</Text>
                 </View>
             </ScrollView>
         )
